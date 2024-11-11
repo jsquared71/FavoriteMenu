@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorite Links</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .link-button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .link-button:hover {
+      background-color: #45a049;
+    }
+
+    .favorite {
+      background-color: #FFD700;
+      color: black;
+    }
+
+    .favorite-button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My Links</h1>
+  <div class="button-container" id="buttonContainer">
+    <div class="link-button" onclick="window.open('https://example.com')">
+      Example Link 1
+      <button class="favorite-button" onclick="toggleFavorite(event)">⭐</button>
+    </div>
+    <div class="link-button" onclick="window.open('https://another-example.com')">
+      Example Link 2
+      <button class="favorite-button" onclick="toggleFavorite(event)">⭐</button>
+    </div>
+    <div class="link-button" onclick="window.open('https://yet-another-example.com')">
+      Example Link 3
+      <button class="favorite-button" onclick="toggleFavorite(event)">⭐</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleFavorite(event) {
+      event.stopPropagation(); // Prevents the main button click from triggering
+      const button = event.target.parentElement;
+      button.classList.toggle('favorite');
+
+      const container = document.getElementById('buttonContainer');
+      const favorites = Array.from(container.children).filter(child => child.classList.contains('favorite'));
+      const nonFavorites = Array.from(container.children).filter(child => !child.classList.contains('favorite'));
+
+      container.innerHTML = ''; // Clear existing buttons
+      favorites.forEach(fav => container.appendChild(fav)); // Append favorites first
+      nonFavorites.forEach(nonFav => container.appendChild(nonFav)); // Then append non-favorites
+    }
+  </script>
+
+</body>
+</html>
